@@ -56,3 +56,22 @@ if (!('ontouchstart' in window)) {
     setTimeout(() => sparkle.remove(), 800);
   });
 }
+
+/* 💖 FLOATING EMOJI GENERATOR 💖 */
+const heartContainer = document.querySelector(".floating-hearts");
+const hearts = ["💖", "💕", "💗", "💘", "💝"];
+
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 18 + "px";
+  heart.style.animationDuration = Math.random() * 6 + 6 + "s";
+
+  heartContainer.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 12000);
+}, 600);
+
