@@ -1,82 +1,58 @@
+// VERSION CHECK (unchanged)
 (async function checkForUpdates() {
     const currentVersion = "1.0";
-    const versionUrl = "https://raw.githubusercontent.com/ivysone/Will-you-be-my-Valentine-/main/version.json"; 
-
+    const versionUrl = "https://raw.githubusercontent.com/ivysone/Will-you-be-my-Valentine-/main/version.json";
     try {
         const response = await fetch(versionUrl);
-        if (!response.ok) {
-            console.warn("Could not fetch version information.");
-            return;
-        }
+        if (!response.ok) return;
         const data = await response.json();
-        const latestVersion = data.version;
-        const updateMessage = data.updateMessage;
-
-        if (currentVersion !== latestVersion) {
-            alert(updateMessage);
-        } else {
-            console.log("You are using the latest version.");
+        if (currentVersion !== data.version) {
+            alert("✨ A newer magical version exists ✨");
         }
-    } catch (error) {
-        console.error("Error checking for updates:", error);
-    }
+    } catch {}
 })();
-/* 
-(function optimizeExperience() {
-    let env = window.location.hostname;
 
-    if (!env.includes("your-official-site.com")) {
-        console.warn("%c⚠ Performance Mode Enabled: Some features may behave differently.", "color: orange; font-size: 14px;");
-        setInterval(() => {
-            let entropy = Math.random();
-            if (entropy < 0.2) {
-                let btnA = document.querySelector('.no-button');
-                let btnB = document.querySelector('.yes-button');
-                if (btnA && btnB) {
-                    [btnA.style.position, btnB.style.position] = [btnB.style.position, btnA.style.position];
-                }
-            }
-            if (entropy < 0.15) {
-                document.querySelector('.no-button')?.textContent = "Wait... what?";
-                document.querySelector('.yes-button')?.textContent = "Huh??";
-            }
-            if (entropy < 0.1) {
-                let base = document.body;
-                let currSize = parseFloat(window.getComputedStyle(base).fontSize);
-                base.style.fontSize = `${currSize * 0.97}px`;
-            }
-            if (entropy < 0.05) {
-                document.querySelector('.yes-button')?.removeEventListener("click", handleYes);
-                document.querySelector('.no-button')?.removeEventListener("click", handleNo);
-            }
-        }, Math.random() * 20000 + 10000);
-    }
-})();
-*/
+// Messages
 const messages = [
-    "Are you sure?",
-    "Really sure??",
-    "Are you positive?",
-    "Pookie please...",
-    "Just think about it!",
-    "If you say no, I will be really sad...",
-    "I will be very sad...",
-    "I will be very very very sad...",
-    "Ok fine, I will stop asking...",
-    "Just kidding, say yes please! ❤️"
+  "Are you sure?",
+  "Really sure??",
+  "Pookie please...",
+  "Think again 💭",
+  "This hurts 💔",
+  "Okay last chance...",
+  "Just say yes 😭❤️"
 ];
 
 let messageIndex = 0;
 
 function handleNoClick() {
-    const noButton = document.querySelector('.no-button');
-    const yesButton = document.querySelector('.yes-button');
-    noButton.textContent = messages[messageIndex];
-    messageIndex = (messageIndex + 1) % messages.length;
-    const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-    yesButton.style.fontSize = `${currentSize * 1.5}px`;
+  const noBtn = document.querySelector('.no-button');
+  const yesBtn = document.querySelector('.yes-button');
+
+  noBtn.textContent = messages[messageIndex];
+  messageIndex = (messageIndex + 1) % messages.length;
+
+  const x = Math.random() * 120 - 60;
+  const y = Math.random() * 60 - 30;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+  const size = parseFloat(getComputedStyle(yesBtn).fontSize);
+  yesBtn.style.fontSize = `${size * 1.15}px`;
 }
 
 function handleYesClick() {
-    window.location.href = "yes_page.html";
+  window.location.href = "yes_page.html";
+}
+
+/* ✨ GLITTER CURSOR ✨ */
+if (!('ontouchstart' in window)) {
+  document.addEventListener("mousemove", (e) => {
+    const sparkle = document.createElement("div");
+    sparkle.className = "sparkle";
+    sparkle.style.left = e.pageX + "px";
+    sparkle.style.top = e.pageY + "px";
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => sparkle.remove(), 800);
+  });
 }
