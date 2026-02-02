@@ -112,3 +112,26 @@ button {
   }
 }
 
+/* ✨ Glitter cursor trail ✨ */
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff, #ff69b4);
+  animation: sparkleFade 0.8s ease-out forwards;
+  z-index: 9999;
+}
+
+@keyframes sparkleFade {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
