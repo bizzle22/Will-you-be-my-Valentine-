@@ -29,16 +29,29 @@ function handleNoClick() {
   const noBtn = document.querySelector('.no-button');
   const yesBtn = document.querySelector('.yes-button');
 
+  // Change text
   noBtn.textContent = messages[messageIndex];
   messageIndex = (messageIndex + 1) % messages.length;
 
-  const x = Math.random() * 120 - 60;
-  const y = Math.random() * 60 - 30;
-  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  // Get viewport & button sizes
+  const btnRect = noBtn.getBoundingClientRect();
+  const maxX = window.innerWidth - btnRect.width - 20;
+  const maxY = window.innerHeight - btnRect.height - 20;
 
+  // Random new position
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  // Make it move properly
+  noBtn.style.position = "fixed";
+  noBtn.style.left = `${randomX}px`;
+  noBtn.style.top = `${randomY}px`;
+
+  // Encourage YES 😌
   const size = parseFloat(getComputedStyle(yesBtn).fontSize);
-  yesBtn.style.fontSize = `${size * 1.15}px`;
+  yesBtn.style.fontSize = `${size * 1.12}px`;
 }
+
 
 function handleYesClick() {
   window.location.href = "yes_page.html";
